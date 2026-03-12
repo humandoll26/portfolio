@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>未完製作所Labs | 小さなWebツールの実験室</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: rgba(255,255,255,0.68);
+      --ink: #2a241e;
+      --muted: #6f665d;
+      --line: rgba(74, 60, 47, 0.12);
+      --accent: #8a6d52;
+      --accent-soft: rgba(138,109,82,0.12);
+      --shadow: 0 18px 40px rgba(66, 52, 38, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.8), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(201,179,153,0.22), transparent 28%),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.74), rgba(255,255,255,0.56));
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 42% 58% 67% 33% / 42% 43% 57% 58%;
+      background: linear-gradient(135deg, rgba(138,109,82,0.12), rgba(138,109,82,0.04));
+      pointer-events: none;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+
+    .brand {
+      font-size: 0.92rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.45);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .lead {
+      max-width: 44rem;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: white;
+      box-shadow: 0 8px 22px rgba(58, 46, 34, 0.06);
+      font-weight: 600;
+    }
+
+    .button.secondary {
+      background: rgba(255,255,255,0.42);
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .note-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,0.56);
+    }
+
+    .note-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+    }
+
+    .note-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .mini-stack {
+      margin-top: 20px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.6);
+    }
+
+    .mini strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .mini span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    section {
+      margin-top: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin: 0 0 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.62));
+      box-shadow: var(--shadow);
+      min-height: 260px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 120px;
+      height: 120px;
+      border-radius: 41% 59% 63% 37% / 38% 42% 58% 62%;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card.color-1::before { background: rgba(117, 148, 209, 0.18); }
+    .card.color-2::before { background: rgba(207, 134, 108, 0.16); }
+    .card.color-3::before { background: rgba(135, 170, 133, 0.18); }
+    .card.color-4::before { background: rgba(181, 143, 194, 0.16); }
+    .card.color-5::before { background: rgba(215, 179, 95, 0.16); }
+    .card.color-6::before { background: rgba(130, 165, 176, 0.18); }
+
+    .card-top {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.24rem;
+      letter-spacing: -0.03em;
+    }
+
+    .card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .meta {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .card-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .card-actions a {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--line);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .panel {
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.6);
+      box-shadow: var(--shadow);
+    }
+
+    .panel h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .panel ul {
+      padding-left: 18px;
+      margin: 10px 0 0;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding: 18px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid,
+      .about {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 20px, 1120px);
+        padding-top: 14px;
+      }
+
+      .hero {
+        padding: 22px;
+        border-radius: 28px;
+      }
+
+      .topbar {
+        margin-bottom: 22px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
+      }
+
+      .nav a,
+      .button,
+      .card-actions a {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="topbar">
+        <div class="brand">未完製作所Labs</div>
+        <nav class="nav">
+          <a href="#works">Works</a>
+          <a href="#about">About</a>
+          <a href="#links">Links</a>
+        </nav>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">small tools / prototypes / playful web apps</div>
+          <h1>小さなWebツールの<br>実験室</h1>
+          <p class="lead">
+            バイブコーディングで小さなWEBアプリを作成しています。<br>
+            役に立つものも、少し変なものも、ここに並べていきます。
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#works">ツールを見る</a>
+            <a class="button secondary" href="https://github.com/humandoll26" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="button secondary" href="https://retrostylejp.theshop.jp/" target="_blank" rel="noreferrer">base-Shop</a>
+          </div>
+        </div>
+
+        <aside class="note-card">
+          <h2>Lab note</h2>
+          <p>
+            プロトタイプをたくさん作ってます。<br>
+            １ページで完結するWEBアプリなので、気に入ったらCodeをコピーして勝手に使ってください。<BR>
+          </p>
+          <div class="mini-stack">
+            <div class="mini">
+              <strong>現在のテーマ</strong>
+              <span>ミニツール / ジェネレーター / １ページ完結</span>
+            </div>
+            <div class="mini">
+              <strong>作り方</strong>
+              <span>vibe coding / HTML / JS / AI prototyping</span>
+            </div>
+            <div class="mini">
+              <strong>更新方針</strong>
+              <span>思いつく → 小さく作る → 公開する → また作る</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <section id="works">
+      <div class="section-head">
+        <div>
+          <h2>Works</h2>
+          <p>遊びと実用のあいだにある、小さなアプリたち。</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card color-1">
+          <div class="card-top">
+            <div class="tag">Playful Tool</div>
+            <h3>Chaos Palette</h3>
+            <p>偶然の3色を生成して、グラデーションや順番を変えながら新しい配色アイデアを探すツール。</p>
+            <div class="meta">HTML / CSS / JavaScript</div>
+          </div>
+          <div class="card-actions">
+            <a href="https://humandoll26.github.io/chaospalette/">Open</a>
+            <a href="https://github.com/humandoll26/chaospalette">Code</a>
+          </div>
+        </article>
+
+        <article class="card color-2">
+          <div class="card-top">
+            <div class="tag">Prototype</div>
+            <h3>簡単レジスター</h3>
+            <p>フリーマーケットやイベント出店で使えるシンプルなレジアプリ。ブラウザだけで動きます。</p>
+            <div class="meta">HTML / CSS / JavaScript</div>
+          </div>
+          <div class="card-actions">
+            <a href="https://humandoll26.github.io/Register/">Open</a>
+            <a href="https://github.com/humandoll26/Register">Code</a>
+          </div>
+        </article>
+
+        <article class="card color-3">
+          <div class="card-top">
+            <div class="tag">Business Tool</div>
+            <h3>買取明細作成→PDF出力</h3>
+            <p>買取明細を作って画面をPDFにして出力する実用アプリ。試作品。</p>
+            <div class="meta">local business / template / workflow</div>
+          </div>
+          <div class="card-actions">
+            <a href="https://humandoll26.github.io/kaitoripdf/">Open</a>
+            <a href="https://github.com/humandoll26/kaitoripdf">Code</a>
+          </div>
+        </article>
+
+        <article class="card color-4">
+          <div class="card-top">
+            <div class="tag">Utility</div>
+            <h3>読書ノート → note下書き（ローカル保存）</h3>
+            <p>読書記録をnoteの形式に変換する。データはこのブラウザ（localStorage）に保存されます。</p>
+            <div class="meta">book / documents / small business</div>
+          </div>
+          <div class="card-actions">
+            <a href="https://humandoll26.github.io/bookreview/">Open</a>
+            <a href="https://github.com/humandoll26/bookreview">Code</a>
+          </div>
+        </article>
+
+        <article class="card color-5">
+          <div class="card-top">
+            <div class="tag">Prototype</div>
+            <h3>産廃見積もりツール</h3>
+            <p>産業廃棄物の計算見積もりツール。友人の体験談を聞いて、こういうことか？と作ってみた。ご利用は自己判断で。</p>
+            <div class="meta">local business / workflow / small business</div>
+          </div>
+          <div class="card-actions">
+            <a href="https://humandoll26.github.io/sanpaimitumori/">Open</a>
+            <a href="https://github.com/humandoll26/sanpaimitumori">Code</a>
+          </div>
+        </article>
+
+        <article class="card color-6">
+          <div class="card-top">
+            <div class="tag">Open Slot</div>
+            <h3>Next Prototype</h3>
+            <p>次に作るミニツールのための空きスロット。ここに新しい試作を追加していく。</p>
+            <div class="meta">coming next / experiments / sketch</div>
+          </div>
+          <div class="card-actions">
+            <a href="#">Next Prototype</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="panel">
+        <h3>About this lab</h3>
+        <p>
+          未完製作所Labs は、月邑弥生の小さなWebツール実験室です。<br>
+          きっちりしたプロダクトというより、アイディアを実現化することを目的としています。
+        </p>
+      </div>
+
+      <div class="panel" id="links">
+        <h3>Links</h3>
+        <ul>
+          <li><a href="https://github.com/humandoll26" target="_blank" rel="noreferrer">GitHub</a></li>
+          <li><a href="https://x.com/rmf_doll" target="_blank" rel="noreferrer">X</a></li>
+          <li><a href="https://note.com/rmfdoll" target="_blank" rel="noreferrer">note</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      © 未完製作所 — small tools, prototypes, and playful experiments.
+    </footer>
+  </div>
+</body>
+</html>
