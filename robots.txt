@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://humandoll26.github.io/portfolio/sitemap.xml
