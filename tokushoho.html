@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>特定商取引法に基づく表記 | 未完製作所</title>
+  <meta name="description" content="未完製作所の特定商取引法に基づく表記です。" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="referrer" content="no-referrer" />
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: rgba(255,255,255,0.78);
+      --ink: #2a241e;
+      --muted: #6f665d;
+      --line: rgba(74, 60, 47, 0.14);
+      --accent: #8a6d52;
+      --shadow: 0 18px 40px rgba(66, 52, 38, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.86), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(201,179,153,0.18), transparent 28%),
+        var(--bg);
+    }
+
+    .wrap {
+      width: min(880px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 72px;
+    }
+
+    .hero,
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      padding: 28px 30px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, p, dl, dd { margin: 0; }
+
+    h1 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      line-height: 1.1;
+    }
+
+    .lead {
+      margin-top: 12px;
+      color: var(--muted);
+    }
+
+    .card {
+      padding: 26px 28px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    dt {
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    dd {
+      color: var(--ink);
+    }
+
+    .note {
+      margin-top: 20px;
+      padding: 16px 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(138,109,82,0.08);
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 20px, 880px);
+        padding-top: 20px;
+      }
+
+      .hero,
+      .card {
+        padding: 22px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Legal Notice</p>
+      <h1>特定商取引法に基づく表記</h1>
+      <p class="lead">未完製作所が提供するツールおよび今後の提供サービスに関する表示ページです。</p>
+    </section>
+
+    <section class="card">
+      <dl class="grid">
+        <div class="item">
+          <dt>販売事業者</dt>
+          <dd>未完製作所</dd>
+        </div>
+        <div class="item">
+          <dt>運営責任者</dt>
+          <dd>三島弥生</dd>
+        </div>
+        <div class="item">
+          <dt>所在地</dt>
+          <dd>請求があった場合に遅滞なく開示いたします</dd>
+        </div>
+        <div class="item">
+          <dt>連絡先</dt>
+          <dd>humandoll26@gmail.com</dd>
+        </div>
+        <div class="item">
+          <dt>提供中のサービスについて</dt>
+          <dd>現在、提供しているツールはすべて無料でご利用いただけます。</dd>
+        </div>
+        <div class="item">
+          <dt>任意の支援について</dt>
+          <dd>任意の支援（投げ銭）を受け付けておりますが、支払いはサービス利用の対価ではありません。</dd>
+        </div>
+        <div class="item">
+          <dt>今後の更新について</dt>
+          <dd>今後、有料サービスや商品販売を開始する場合は、本ページの内容を適宜更新いたします。</dd>
+        </div>
+      </dl>
+    </section>
+  </main>
+</body>
+</html>
