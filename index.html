@@ -262,6 +262,54 @@
       font-size: 0.92rem;
     }
 
+    .works-service {
+      margin-bottom: 18px;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.6));
+      box-shadow: var(--shadow);
+    }
+
+    .works-service-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .works-service h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+    }
+
+    .works-service p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    .service-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -586,6 +634,17 @@
         <button type="button" class="filter-button" data-filter="playful" aria-pressed="false">遊び</button>
       </div>
 
+      <section class="works-service" aria-labelledby="customize-title">
+        <div class="works-service-head">
+          <h3 id="customize-title">公開ツールのカスタマイズ相談を受けています</h3>
+          <span class="service-badge">custom work available</span>
+        </div>
+        <p>この一覧にあるツールをベースに、文言変更、項目追加、見た目調整、運用フローに合わせた軽い改修などを相談ベースで受けています。ゼロから大きく作るより、まず今ある型を土台にして素早く整えたいケース向けです。</p>
+        <div class="service-actions">
+          <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSdiC1fGdMA0lqVVoyfGLT9gj6ySGYalV7INjXDvK4qUIppGjA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">相談フォームはこちら</a>
+        </div>
+      </section>
+
       <div class="works-groups">
         <section class="works-group" data-category="business" aria-labelledby="works-business">
           <div class="works-group-head">
@@ -860,6 +919,7 @@
           <ul>
             <li><a href="https://github.com/humandoll26" target="_blank" rel="noreferrer">GitHub</a></li>
             <li><a href="https://x.com/rmf_doll" target="_blank" rel="noreferrer">X</a></li>
+            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdiC1fGdMA0lqVVoyfGLT9gj6ySGYalV7INjXDvK4qUIppGjA/viewform?usp=publish-editor" target="_blank" rel="noreferrer">相談フォーム</a></li>
           </ul>
       </div>
     </section>
