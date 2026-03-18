@@ -255,6 +255,42 @@
       gap: 26px;
     }
 
+    .works-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .filter-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.68);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .filter-button:hover {
+      background: rgba(255,255,255,0.92);
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+
+    .filter-button.is-active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .works-group.is-hidden {
+      display: none;
+    }
+
     .works-group {
       display: grid;
       gap: 12px;
@@ -520,8 +556,15 @@
         </div>
       </div>
 
+      <div class="works-filter" aria-label="Works Filter">
+        <button type="button" class="filter-button is-active" data-filter="all" aria-pressed="true">全部</button>
+        <button type="button" class="filter-button" data-filter="business" aria-pressed="false">ビジネス</button>
+        <button type="button" class="filter-button" data-filter="generator" aria-pressed="false">ジェネレータ</button>
+        <button type="button" class="filter-button" data-filter="playful" aria-pressed="false">遊び</button>
+      </div>
+
       <div class="works-groups">
-        <section class="works-group" aria-labelledby="works-business">
+        <section class="works-group" data-category="business" aria-labelledby="works-business">
           <div class="works-group-head">
             <h3 id="works-business">Business</h3>
             <p>業務フローや現場運用に近い実務寄りのツール。</p>
@@ -645,7 +688,7 @@
           </div>
         </section>
 
-        <section class="works-group" aria-labelledby="works-generator">
+        <section class="works-group" data-category="generator" aria-labelledby="works-generator">
           <div class="works-group-head">
             <h3 id="works-generator">Generator</h3>
             <p>たたき台やビジュアルを素早く作る生成系ツール。</p>
@@ -705,7 +748,7 @@
           </div>
         </section>
 
-        <section class="works-group" aria-labelledby="works-playful">
+        <section class="works-group" data-category="playful" aria-labelledby="works-playful">
           <div class="works-group-head">
             <h3 id="works-playful">Playful</h3>
             <p>実験や遊び心を強めに出したプロトタイプ。</p>
@@ -806,5 +849,29 @@
       © 未完製作所 — small tools, prototypes, and playful experiments.
     </footer>
   </div>
+  <script>
+    const filterButtons = document.querySelectorAll("[data-filter]");
+    const workGroups = document.querySelectorAll(".works-group[data-category]");
+
+    function applyFilter(nextFilter) {
+      filterButtons.forEach((button) => {
+        const isActive = button.dataset.filter === nextFilter;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      workGroups.forEach((group) => {
+        const shouldShow =
+          nextFilter === "all" || group.dataset.category === nextFilter;
+        group.classList.toggle("is-hidden", !shouldShow);
+      });
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        applyFilter(button.dataset.filter);
+      });
+    });
+  </script>
 </body>
 </html>
